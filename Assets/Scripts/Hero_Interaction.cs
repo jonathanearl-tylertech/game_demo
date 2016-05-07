@@ -34,12 +34,17 @@ public class Hero_Interaction : MonoBehaviour {
         //{
         //}
         //this.rigid_body.velocity = new Vector2(move * max_speed, this.rigid_body.velocity.y);
-        if (Input.GetKeyDown("space") && this.grounded)
-            Jump();
+		if (Input.GetKeyDown ("space") && this.grounded) {
+			Jump ();
+		}
+		else if (Input.GetKey ("space") && !this.grounded) {
+			Debug.Log ("FLY BABY FLY");
+			this.rigid_body.AddForce (new Vector2 (5f, 20f), ForceMode2D.Force);
+		}
     }
 
     void Jump ()
     {
-        this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
+        this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 5f), ForceMode2D.Impulse);
     }
 }

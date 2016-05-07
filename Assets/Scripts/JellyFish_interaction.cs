@@ -24,7 +24,11 @@ public class JellyFish_interaction : MonoBehaviour {
             Rigidbody2D hero_rigid = other.GetComponent<Rigidbody2D>();
             hero_rigid.velocity = new Vector3(hero_rigid.velocity.x, 0f, 0f);
             //hero_rigid.velocity = new Vector2(hero_rigid.velocity.x, 0f);
-            hero_rigid.AddForce(new Vector3(hero_rigid.velocity.x, bounce_force, 0), ForceMode2D.Impulse);
+			// choose up or down bounce
+			int direction;
+			if (other.gameObject.transform.position.y > this.transform.position.y) direction = 1;
+			else direction = -1;
+            hero_rigid.AddForce(new Vector3(hero_rigid.velocity.x, direction * bounce_force, 0), ForceMode2D.Impulse);
         }
     }
 }
