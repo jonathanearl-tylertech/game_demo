@@ -15,11 +15,12 @@ public class Hero_Interaction : MonoBehaviour {
 	private float meemoSpeed = 10f;
 	public BubbleBehaviour bubble;
 	public bool isInBubble;
-	private Vector3 mSize;
 
 	// Use this for initialization
 	void Start () {
         this.rigid_body = this.GetComponent<Rigidbody2D>();
+		isInBubble = false;
+
     }
 
     void FixedUpdate () {
@@ -47,10 +48,64 @@ public class Hero_Interaction : MonoBehaviour {
 			this.rigid_body.AddForce (new Vector2 (5f, 20f), ForceMode2D.Force);
 		}
 
+
+
+		/// Interaction with bubble
+		if (isInBubble) {
+			Debug.Log ("InBubble");
+
+			if (Input.GetAxis ("Horizontal") != 0f) { // When meemo is controlling the horizontal direction
+				Debug.Log("MOVING IN BUBBLE");
+				float bnewY = bubble.transform.position.y + 0.01f;// bubble floats
+				float bnewX = transform.position.x + Input.GetAxis ("Horizontal") * (meemoSpeed * Time.smoothDeltaTime);
+				bubble.transform.position = new Vector3 (bnewX, bnewY, 0f);
+				bubble.initpos.x = bnewX;
+
+				transform.position = new Vector3 (bnewX - 0.05f, bnewY - 0.2f, transform.position.z);
+
+			} else { // When meemo is following bubble
+				Debug.Log("Not moving in bubble");
+				FollowSineCurve();
+
+				// update meemo's position to bubble'e sine curve
+				transform.position = new Vector3 (bubble.transform.position.x - 0.05f,
+					bubble.transform.position.y - GetComponent<Renderer> ().bounds.size.y / 2f + 0.05f, bubble.transform.position.z);
+			}
+
+		} else {
+			Debug.Log ("Not in bubble!");
+			transform.position += Input.GetAxis ("Horizontal") * transform.right * (meemoSpeed * Time.smoothDeltaTime);
+			transform.position += Input.GetAxis ("Vertical") * transform.up * (meemoSpeed * Time.smoothDeltaTime);
+		}
+
+		/// End interaction with bubble
+
+
     }
 
     void Jump ()
     {
-        this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
+        this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 5), ForceMode2D.Impulse);
     }
+
+
+
+	// Update position of bubble following sine curve
+	private void FollowSineCurve(){
+		float newY = bubble.transform.position.y + 0.01f;
+		float newX = bubble.initpos.x + GetXValue (newY); 
+		bubble.transform.position = new Vector3 (newX, newY, 0f);
+	}
+
+
+
+
+	// Calculate the x value for bubble movement
+	private float GetXValue(float y){
+		GlobalBehaviour globalBehaviour = GameObject.Find ("GameManager").GetComponent<GlobalBehaviour> ();
+
+		float sinFreqScale = bubble.sinOsc * 2f * (Mathf.PI) / globalBehaviour.WorldMax.y;
+		return bubble.sinAmp * (Mathf.Sin(y * sinFreqScale));
+	}
+
 }
