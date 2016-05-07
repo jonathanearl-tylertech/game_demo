@@ -12,6 +12,11 @@ public class Hero_Interaction : MonoBehaviour {
     float ground_radius = 0.5f;
     public LayerMask what_is_ground;
 
+	private float meemoSpeed = 10f;
+	public BubbleBehaviour bubble;
+	public bool isInBubble;
+	private Vector3 mSize;
+
 	// Use this for initialization
 	void Start () {
         this.rigid_body = this.GetComponent<Rigidbody2D>();

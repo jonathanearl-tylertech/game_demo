@@ -84,9 +84,9 @@ public class BubbleBehaviour : MonoBehaviour {
 	// When hero comes into the bubble
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		Hero_Interaction meemo = GameObject.FindGameObjectWithTag ("Meemo").GetComponent<MeemoBehaviour> ();
+		Hero_Interaction meemo = GameObject.FindGameObjectWithTag ("Meemo").GetComponent<Hero_Interaction> ();
 		if (other.gameObject.name == "Meemo" && !meemo.isInBubble) {
-			thisMeemo = other.GetComponent<MeemoBehaviour> ();
+			thisMeemo = other.GetComponent<Hero_Interaction> ();
 
 			hasMeemo = true;
 			thisMeemo.GetComponent<Rigidbody2D> ().isKinematic = false;
