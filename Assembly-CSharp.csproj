@@ -45,6 +45,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\MenuLevelStuff\FirstGameManager.cs" />
+     <Compile Include="Assets\MenuLevelStuff\LoadSceneSupport.cs" />
+     <Compile Include="Assets\Scripts\GlobalGameManager.cs" />
      <Compile Include="Assets\Scripts\Hero_Interaction.cs" />
      <Compile Include="Assets\Scripts\JellyFish_interaction.cs" />
  <Reference Include="UnityEngine.Networking">
