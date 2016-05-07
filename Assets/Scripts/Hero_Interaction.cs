@@ -41,10 +41,11 @@ public class Hero_Interaction : MonoBehaviour {
 			Debug.Log ("FLY BABY FLY");
 			this.rigid_body.AddForce (new Vector2 (5f, 20f), ForceMode2D.Force);
 		}
+
     }
 
     void Jump ()
     {
-        this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 5f), ForceMode2D.Impulse);
+        this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
     }
 }
