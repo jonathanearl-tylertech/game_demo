@@ -24,9 +24,7 @@ public class Hero_Interaction : MonoBehaviour {
     }
 
     void FixedUpdate () {
-        this.grounded = Physics2D.OverlapCircle(this.ground_check.position, this.ground_radius, this.what_is_ground);
-        float move = Input.GetAxis("Horizontal");
-        this.rigid_body.velocity = new Vector2(move * max_speed, this.rigid_body.velocity.y);
+        
 
         //if (this.rigid_body.velocity.x > max_speed && move < 0f)
         //{
@@ -73,9 +71,9 @@ public class Hero_Interaction : MonoBehaviour {
 			}
 
 		} else {
-			Debug.Log ("Not in bubble!");
-			transform.position += Input.GetAxis ("Horizontal") * transform.right * (meemoSpeed * Time.smoothDeltaTime);
-			transform.position += Input.GetAxis ("Vertical") * transform.up * (meemoSpeed * Time.smoothDeltaTime);
+			this.grounded = Physics2D.OverlapCircle(this.ground_check.position, this.ground_radius, this.what_is_ground);
+			float move = Input.GetAxis("Horizontal");
+			this.rigid_body.velocity = new Vector2(move * max_speed, this.rigid_body.velocity.y);
 		}
 
 		/// End interaction with bubble
