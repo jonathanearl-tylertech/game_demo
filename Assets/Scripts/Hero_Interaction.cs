@@ -12,15 +12,16 @@ public class Hero_Interaction : MonoBehaviour {
     float ground_radius = 0.5f;
     public LayerMask what_is_ground;
 
-	private float meemoSpeed = 10f;
+	private float meemoSpeed = 5f;
 	public BubbleBehaviour bubble;
 	public bool isInBubble;
+	private bool isFacingRight;
 
 	// Use this for initialization
 	void Start () {
         this.rigid_body = this.GetComponent<Rigidbody2D>();
 		isInBubble = false;
-
+		isFacingRight = true;
     }
 
     void FixedUpdate () {
@@ -38,14 +39,6 @@ public class Hero_Interaction : MonoBehaviour {
         //{
         //}
         //this.rigid_body.velocity = new Vector2(move * max_speed, this.rigid_body.velocity.y);
-		if (Input.GetKeyDown ("space") && this.grounded) {
-			Jump ();
-		}
-		else if (Input.GetKey ("space") && !this.grounded) {
-			Debug.Log ("FLY BABY FLY");
-			this.rigid_body.AddForce (new Vector2 (5f, 20f), ForceMode2D.Force);
-		}
-
 
 
 		/// Interaction with bubble
@@ -53,13 +46,15 @@ public class Hero_Interaction : MonoBehaviour {
 			Debug.Log ("InBubble");
 
 			if (Input.GetAxis ("Horizontal") != 0f) { // When meemo is controlling the horizontal direction
+				
+
 				Debug.Log("MOVING IN BUBBLE");
 				float bnewY = bubble.transform.position.y + 0.01f;// bubble floats
 				float bnewX = transform.position.x + Input.GetAxis ("Horizontal") * (meemoSpeed * Time.smoothDeltaTime);
 				bubble.transform.position = new Vector3 (bnewX, bnewY, 0f);
 				bubble.initpos.x = bnewX;
 
-				transform.position = new Vector3 (bnewX - 0.05f, bnewY - 0.2f, transform.position.z);
+				transform.position = new Vector3 (bnewX - 0.05f, bnewY - 0.5f, transform.position.z);
 
 			} else { // When meemo is following bubble
 				Debug.Log("Not moving in bubble");
@@ -67,17 +62,37 @@ public class Hero_Interaction : MonoBehaviour {
 
 				// update meemo's position to bubble'e sine curve
 				transform.position = new Vector3 (bubble.transform.position.x - 0.05f,
-					bubble.transform.position.y - GetComponent<Renderer> ().bounds.size.y / 2f + 0.05f, bubble.transform.position.z);
+					bubble.transform.position.y - GetComponent<Renderer> ().bounds.size.y / 2f + 0.5f, bubble.transform.position.z);
 			}
 
 		} else {
+
+			Debug.Log ("Not in bubble!");
 			this.grounded = Physics2D.OverlapCircle(this.ground_check.position, this.ground_radius, this.what_is_ground);
 			float move = Input.GetAxis("Horizontal");
 			this.rigid_body.velocity = new Vector2(move * max_speed, this.rigid_body.velocity.y);
+
+			if (Input.GetKeyDown ("space") && this.grounded) {
+				Jump ();
+			}
+			else if (Input.GetKey ("space") && !this.grounded) {
+				Debug.Log ("FLY BABY FLY");
+				this.rigid_body.AddForce (new Vector2 (5f, 20f), ForceMode2D.Force);
+			}
+
 		}
 
 		/// End interaction with bubble
 
+		if (Input.GetAxis ("Horizontal") < 0f && isFacingRight) {
+			transform.localScale = new Vector3 (-.4f, .4f, 0f);
+			isFacingRight = false;
+		}
+
+		if (Input.GetAxis ("Horizontal") > 0f && !isFacingRight) {
+			transform.localScale = new Vector3 (.4f, .4f, 0f);
+			isFacingRight = true;
+		}
 
     }
 
