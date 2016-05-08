@@ -4,6 +4,7 @@ using System.Collections;
 public class GlobalBehaviour : MonoBehaviour {
 	// For bubble creation
 	public GameObject bubble = null;
+	public GameObject health_bar = null;
 	private float preBubbleTime = -2f;
 	private const float bubbleCreateInterval = 3.0f; // in seconds
 
@@ -24,11 +25,17 @@ public class GlobalBehaviour : MonoBehaviour {
 
 		if (null == bubble)
 			bubble = Resources.Load ("Prefabs/Bubble") as GameObject;
+		if (health_bar == null)
+			health_bar = Resources.Load ("Prefabs/HealthBar") as GameObject;
+		this.CreateHealthBar ();
+		
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		CreateBubble ();
+		UpdateWorldWindowBound ();
 	}
 		
 	// Create bubble
@@ -37,6 +44,10 @@ public class GlobalBehaviour : MonoBehaviour {
 			GameObject e = (GameObject) Instantiate(bubble);
 			preBubbleTime = Time.realtimeSinceStartup;
 		}
+	}
+
+	private void CreateHealthBar() {
+		GameObject e = (GameObject) Instantiate(health_bar);
 	}
 
 	#region Game Window World size bound support

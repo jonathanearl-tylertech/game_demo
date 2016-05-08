@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\BubbleBehaviour.cs" />
      <Compile Include="Assets\Scripts\GlobalBehaviour.cs" />
+     <Compile Include="Assets\Scripts\HealthBar_interaction.cs" />
      <Compile Include="Assets\Scripts\Hero_Interaction.cs" />
      <Compile Include="Assets\Scripts\JellyFish_interaction.cs" />
  <Reference Include="UnityEngine.Networking">
