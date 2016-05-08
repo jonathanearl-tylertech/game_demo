@@ -6,7 +6,7 @@ public class GlobalBehaviour : MonoBehaviour {
 	public GameObject bubble = null;
 	public GameObject health_bar = null;
 	private float preBubbleTime = -2f;
-	private const float bubbleCreateInterval = 3.0f; // in seconds
+	private const float bubbleCreateInterval = 5.0f; // in seconds
 
 	// For World Bound
 	private Bounds mWorldBound;  // this is the world bound

@@ -14,7 +14,7 @@ public class HealthBar_interaction : MonoBehaviour {
 		Vector2 world_center = global_behaviour.WorldCenter;
 		Debug.Log ("min" + world_min + " max:" + world_max);
 		float width = world_max.x - world_min.x * 0.50f; //width is 50% of the screen
-		float height = world_max.y - world_min.y * 0.02f; // height is 2 % of the screen
+		float height = world_max.y - world_min.y * 0.01f; // height is 2 % of the screen
 		Debug.Log("width:" + width + " height:" + height);
 		float x = world_center.x;
 		float y = world_max.y - height;

@@ -3,12 +3,12 @@ using System.Collections;
 
 public class BubbleBehaviour : MonoBehaviour {
 	public float sinAmp = 0.5f;
-	public float sinOsc = 10f;
+	public float sinOsc = 15f;
 	public Vector3 initpos;
 	public bool hasMeemo = false;
 	private Vector3 bSize;
 	public bool isPopped;
-
+	public Animator anim;
 
 	ParticleSystem ps;
 	ParticleSystem.EmissionModule em;
@@ -27,7 +27,7 @@ public class BubbleBehaviour : MonoBehaviour {
 
 		initpos = transform.position;
 
-		GetComponent<Animator> ().enabled = false;
+		anim = GetComponent<Animator> ();
 		isPopped = false;
 
 		ps = this.GetComponent<ParticleSystem> ();
@@ -50,7 +50,7 @@ public class BubbleBehaviour : MonoBehaviour {
 		Vector3 size = GetComponent<Renderer> ().bounds.size;
 
 		// When top of bubble touches world bound, Pop it
-		if ((transform.position.y + size.y / 2f) > globalBehaviour.WorldMax.y) {
+		if ((transform.position.y + size.y / 2f) > globalBehaviour.WorldMax.y && !isPopped) {
 			PopBubble ();
 		}
 
@@ -66,7 +66,7 @@ public class BubbleBehaviour : MonoBehaviour {
 
 	// Update position of bubble following sine curve
 	public void FollowSineCurve(){
-		float newY = transform.position.y + 0.01f;
+		float newY = transform.position.y + 0.03f;
 		float newX = initpos.x + GetXValue (newY); 
 		transform.position = new Vector3 (newX, newY, 0f);
 	}
@@ -113,7 +113,7 @@ public class BubbleBehaviour : MonoBehaviour {
 			thisMeemo.GetComponent<Rigidbody2D> ().isKinematic = false;
 			hasMeemo = false;
 		}
-		GetComponent<Animator> ().enabled = true;
+		anim.SetTrigger ("trigger");
 		isPopped = true;
 	}
 }

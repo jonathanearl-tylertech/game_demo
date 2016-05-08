@@ -54,7 +54,7 @@ public class Hero_Interaction : MonoBehaviour {
 				bubble.transform.position = new Vector3 (bnewX, bnewY, 0f);
 				bubble.initpos.x = bnewX;
 
-				transform.position = new Vector3 (bnewX - 0.05f, bnewY - 0.5f, transform.position.z);
+				transform.position = new Vector3 (bnewX - 0.05f, bnewY - 0.2f, transform.position.z);
 
 			} else { // When meemo is following bubble
 				Debug.Log("Not moving in bubble");
@@ -85,12 +85,12 @@ public class Hero_Interaction : MonoBehaviour {
 		/// End interaction with bubble
 
 		if (Input.GetAxis ("Horizontal") < 0f && isFacingRight) {
-			transform.localScale = new Vector3 (-.4f, .4f, 0f);
+			transform.localScale = new Vector3 (-.3f, .3f, 0f);
 			isFacingRight = false;
 		}
 
 		if (Input.GetAxis ("Horizontal") > 0f && !isFacingRight) {
-			transform.localScale = new Vector3 (.4f, .4f, 0f);
+			transform.localScale = new Vector3 (.3f, .3f, 0f);
 			isFacingRight = true;
 		}
 
@@ -105,7 +105,7 @@ public class Hero_Interaction : MonoBehaviour {
 
 	// Update position of bubble following sine curve
 	private void FollowSineCurve(){
-		float newY = bubble.transform.position.y + 0.01f;
+		float newY = bubble.transform.position.y + 0.03f;
 		float newX = bubble.initpos.x + GetXValue (newY); 
 		bubble.transform.position = new Vector3 (newX, newY, 0f);
 	}

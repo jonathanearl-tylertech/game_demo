@@ -7,16 +7,20 @@ public class JellyFish_interaction : MonoBehaviour {
 	private float start_y;
 	private Rigidbody2D rigid_body;
 
+	public Animator anim;
+
     // Use this for initialization
     void Start()
     {
 		this.rigid_body = this.gameObject.GetComponent<Rigidbody2D> ();
+		anim = GetComponent<Animator> ();
     }
 		
 	void FixedUpdate() {
 		if ((this.start_y - this.transform.position.y) > 0.05f && this.transform.position.y + 0.05f < this.start_y) {
 			this.rigid_body.AddForce (new Vector2 (0f, 20f), ForceMode2D.Force);
 		}
+
 	}
 		
 	void OnCollisionEnter2D(Collision2D other)
@@ -24,6 +28,7 @@ public class JellyFish_interaction : MonoBehaviour {
 		Debug.Log ("COLLIDED JELLYFISH");
 		if (other.gameObject.tag == "Player")
 		{
+			anim.SetTrigger ("trigger");
 			Debug.Log ("Collided with tag player");
 			Rigidbody2D hero_rigid = other.gameObject.GetComponent<Rigidbody2D>();
 			hero_rigid.velocity = new Vector3(hero_rigid.velocity.x, 0f, 0f);
