@@ -1,10 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BubbleBehaviour.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Hero_Interaction.cs">
     <Files>
+      <File FileName="Assets/Scripts/GlobalBehaviour.cs" Line="32" Column="3" />
       <File FileName="Assets/Scripts/Hero_Interaction.cs" Line="50" Column="3" />
       <File FileName="Assets/Scripts/BubbleBehaviour.cs" Line="106" Column="35" />
-      <File FileName="Assets/Scripts/GlobalBehaviour.cs" Line="37" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
