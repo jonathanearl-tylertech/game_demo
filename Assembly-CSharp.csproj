@@ -48,7 +48,7 @@
      <Compile Include="Assets\Scripts\BubbleBehaviour.cs" />
      <Compile Include="Assets\Scripts\GlobalBehaviour.cs" />
      <Compile Include="Assets\Scripts\Hero_Interaction.cs" />
-     <Compile Include="Assets\Scripts\JellyFish_interaction.cs" />
+     <Compile Include="Assets\Scripts\JellyFishTop_interaction.cs" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
