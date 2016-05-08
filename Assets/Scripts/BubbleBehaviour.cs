@@ -7,6 +7,8 @@ public class BubbleBehaviour : MonoBehaviour {
 	public Vector3 initpos;
 	public bool hasMeemo = false;
 	private Vector3 bSize;
+	public bool isPopped;
+
 
 	ParticleSystem ps;
 	ParticleSystem.EmissionModule em;
@@ -26,10 +28,12 @@ public class BubbleBehaviour : MonoBehaviour {
 		initpos = transform.position;
 
 		GetComponent<Animator> ().enabled = false;
+		isPopped = false;
 
 		ps = this.GetComponent<ParticleSystem> ();
 		em = ps.emission;
 		em.enabled = false;
+
 
 	}
 
@@ -86,7 +90,7 @@ public class BubbleBehaviour : MonoBehaviour {
 	{
 		Debug.Log ("Touches something");
 		Hero_Interaction meemo = GameObject.FindGameObjectWithTag ("Player").GetComponent<Hero_Interaction> ();
-		if (other.gameObject.name == "Meemo" && !meemo.isInBubble) {
+		if (other.gameObject.name == "Meemo" && !meemo.isInBubble && !isPopped) {
 			Debug.Log ("Touches Meemo");
 			thisMeemo = other.GetComponent<Hero_Interaction> ();
 
@@ -110,5 +114,6 @@ public class BubbleBehaviour : MonoBehaviour {
 			hasMeemo = false;
 		}
 		GetComponent<Animator> ().enabled = true;
+		isPopped = true;
 	}
 }
