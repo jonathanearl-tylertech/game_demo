@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class BubbleBehaviour : MonoBehaviour {
-	public float sinAmp = 0.05f;
-	public float sinOsc = 15f;
+	public float sinAmp = 0.5f;
+	public float sinOsc = 10f;
 	public Vector3 initpos;
 	public bool hasMeemo = false;
 	private Vector3 bSize;
