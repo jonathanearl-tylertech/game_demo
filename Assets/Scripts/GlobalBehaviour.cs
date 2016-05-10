@@ -7,13 +7,10 @@ public class GlobalBehaviour : MonoBehaviour {
 	private float preBubbleTime = -2f;
 	private const float bubbleCreateInterval = 5.0f; // in seconds
 
-	private Camera mMainCamera;
 
 	// Use this for initialization
 	void Start () {
-		#region world bound support
-		mMainCamera = Camera.main;
-		#endregion
+
 
 		if (null == bubble)
 			bubble = Resources.Load ("Prefabs/Bubble") as GameObject;

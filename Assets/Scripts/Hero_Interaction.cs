@@ -10,7 +10,7 @@ public class Hero_Interaction : MonoBehaviour {
 	#region jump support
     bool grounded = false;
     public Transform ground_check;
-    float ground_radius = 0.5f;
+    float ground_radius = 0.01f;
     public LayerMask what_is_ground;
 	#endregion
 
@@ -46,11 +46,11 @@ public class Hero_Interaction : MonoBehaviour {
 
 				Debug.Log("MOVING IN BUBBLE");
 				float bnewY = bubble.transform.position.y + 0.01f;// bubble floats
-				float bnewX = transform.position.x + Input.GetAxis ("Horizontal") * (meemoSpeed * Time.smoothDeltaTime);
+				float bnewX = transform.position.x + Input.GetAxis ("Horizontal") * (air_speed);
 				bubble.transform.position = new Vector3 (bnewX, bnewY, 0f);
 				bubble.initpos.x = bnewX;
 
-				transform.position = new Vector3 (bnewX - 0.05f, bnewY - 0.2f, transform.position.z);
+				transform.position = new Vector3 (bnewX, bnewY - 0.2f, transform.position.z);
 
 			} else { // When meemo is following bubble
 				Debug.Log("Not moving in bubble");
@@ -65,14 +65,13 @@ public class Hero_Interaction : MonoBehaviour {
 
 			Debug.Log ("Not in bubble!");
 			this.grounded = Physics2D.OverlapCircle(this.ground_check.position, this.ground_radius, this.what_is_ground);
-			float move = Input.GetAxis("Horizontal");
-			this.rigid_body.velocity = new Vector2(move * max_speed, this.rigid_body.velocity.y);
+			this.rigid_body.velocity = new Vector2(Input.GetAxis("Horizontal") * max_speed, this.rigid_body.velocity.y);
 
 			if (Input.GetKeyDown ("space") && this.grounded) {
 				Jump ();
 			} else if (Input.GetKeyDown ("space") && !this.grounded && this.star_timer > 0f) {
 				is_using_power = true;
-			} else if (Input.GetKeyUp ("space")) {
+			} else if (Input.GetKeyUp ("space") || this.star_timer <= 0f) {
 				is_using_power = false;
 			}
 			if (is_using_power) {
