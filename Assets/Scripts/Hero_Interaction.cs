@@ -7,40 +7,36 @@ public class Hero_Interaction : MonoBehaviour {
     public float air_speed = 0.1f;
     private Rigidbody2D rigid_body;
 
+	#region jump support
     bool grounded = false;
     public Transform ground_check;
     float ground_radius = 0.5f;
     public LayerMask what_is_ground;
+	#endregion
 
+	#region bubble support
 	private float meemoSpeed = 5f;
 	public BubbleBehaviour bubble;
 	public bool isInBubble;
 	private bool isFacingRight;
+	#endregion
+
+	#region starpower support
+	private const float MAX_STAR_TIMER = 1f;
+	private float star_timer = MAX_STAR_TIMER; // get 1 second of power up
+	private StarBar_interaction star_bar = null;
+	private bool is_using_power = false;
+	#endregion
 
 	// Use this for initialization
 	void Start () {
         this.rigid_body = this.GetComponent<Rigidbody2D>();
 		isInBubble = false;
 		isFacingRight = true;
+		this.star_bar = GameObject.Find ("StarBar").GetComponent<StarBar_interaction> ();
     }
 
     void FixedUpdate () {
-        
-
-        //if (this.rigid_body.velocity.x > max_speed && move < 0f)
-        //{
-        //    this.rigid_body.velocity = new Vector2(-this.rigid_body.velocity.x + move * air_speed, this.rigid_body.velocity.y);
-        //}
-        //else if (this.rigid_body.velocity.x < -max_speed && move > 0f)
-        //{
-        //    this.rigid_body.velocity = new Vector2(this.rigid_body.velocity.x + move * air_speed, this.rigid_body.velocity.y);
-        //}
-        //else if (this.rigid_body.velocity.x <= max_speed && this.rigid_body.velocity.x >= -max_speed)
-        //{
-        //}
-        //this.rigid_body.velocity = new Vector2(move * max_speed, this.rigid_body.velocity.y);
-
-
 		/// Interaction with bubble
 		if (isInBubble) {
 			Debug.Log ("InBubble");
@@ -74,12 +70,14 @@ public class Hero_Interaction : MonoBehaviour {
 
 			if (Input.GetKeyDown ("space") && this.grounded) {
 				Jump ();
+			} else if (Input.GetKeyDown ("space") && !this.grounded && this.star_timer > 0f) {
+				is_using_power = true;
+			} else if (Input.GetKeyUp ("space")) {
+				is_using_power = false;
 			}
-			else if (Input.GetKey ("space") && !this.grounded) {
-				Debug.Log ("FLY BABY FLY");
-				this.rigid_body.AddForce (new Vector2 (5f, 20f), ForceMode2D.Force);
+			if (is_using_power) {
+				fly ();
 			}
-
 		}
 
 		/// End interaction with bubble
@@ -96,12 +94,16 @@ public class Hero_Interaction : MonoBehaviour {
 
     }
 
+	void fly () {
+		this.star_timer -= Time.fixedDeltaTime;
+		this.rigid_body.AddForce (new Vector2 (5f, 20f), ForceMode2D.Force);
+		star_bar.UpdateStarBarSize (this.star_timer);
+	}
+
     void Jump ()
     {
-        this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 5), ForceMode2D.Impulse);
+        this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 10f), ForceMode2D.Impulse);
     }
-
-
 
 	// Update position of bubble following sine curve
 	private void FollowSineCurve(){
@@ -109,14 +111,10 @@ public class Hero_Interaction : MonoBehaviour {
 		float newX = bubble.initpos.x + GetXValue (newY); 
 		bubble.transform.position = new Vector3 (newX, newY, 0f);
 	}
-
-
-
-
+		
 	// Calculate the x value for bubble movement
 	private float GetXValue(float y){
-		GlobalBehaviour globalBehaviour = GameObject.Find ("GameManager").GetComponent<GlobalBehaviour> ();
-
+		CameraBehavior globalBehaviour = GameObject.Find ("Main Camera").GetComponent<CameraBehavior> ();
 		float sinFreqScale = bubble.sinOsc * 2f * (Mathf.PI) / globalBehaviour.WorldMax.y;
 		return bubble.sinAmp * (Mathf.Sin(y * sinFreqScale));
 	}

@@ -19,7 +19,7 @@ public class BubbleBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GlobalBehaviour globalBehaviour = GameObject.Find ("GameManager").GetComponent<GlobalBehaviour> ();
+		CameraBehavior globalBehaviour = GameObject.Find ("Main Camera").GetComponent<CameraBehavior> ();
 		bSize = GetComponent<Renderer> ().bounds.size;
 
 		transform.position = new Vector3 (Random.Range (globalBehaviour.WorldMin.x, globalBehaviour.WorldMax.x),
@@ -42,7 +42,7 @@ public class BubbleBehaviour : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		GlobalBehaviour globalBehaviour = GameObject.Find ("GameManager").GetComponent<GlobalBehaviour> ();
+		CameraBehavior globalBehaviour = GameObject.Find ("Main Camera").GetComponent<CameraBehavior> ();
 
 		if(!hasMeemo)
 			FollowSineCurve ();
@@ -76,7 +76,7 @@ public class BubbleBehaviour : MonoBehaviour {
 
 	// Calculate the x value for bubble movement
 	private float GetXValue(float y){
-		GlobalBehaviour globalBehaviour = GameObject.Find ("GameManager").GetComponent<GlobalBehaviour> ();
+		CameraBehavior globalBehaviour = GameObject.Find ("Main Camera").GetComponent<CameraBehavior> ();
 
 		float sinFreqScale = sinOsc * 2f * (Mathf.PI) / globalBehaviour.WorldMax.y;
 		return sinAmp * (Mathf.Sin(y * sinFreqScale));

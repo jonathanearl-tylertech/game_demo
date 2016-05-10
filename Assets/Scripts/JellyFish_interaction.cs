@@ -12,6 +12,7 @@ public class JellyFish_interaction : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+		this.start_y = this.transform.position.y;
 		this.rigid_body = this.gameObject.GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
     }
@@ -25,7 +26,6 @@ public class JellyFish_interaction : MonoBehaviour {
 		
 	void OnCollisionEnter2D(Collision2D other)
 	{
-		Debug.Log ("COLLIDED JELLYFISH");
 		if (other.gameObject.tag == "Player")
 		{
 			anim.SetTrigger ("trigger");

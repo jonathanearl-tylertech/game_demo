@@ -46,12 +46,19 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\BubbleBehaviour.cs" />
+     <Compile Include="Assets\Scripts\CameraBehavior.cs" />
      <Compile Include="Assets\Scripts\GlobalBehaviour.cs" />
-     <Compile Include="Assets\Scripts\HealthBar_interaction.cs" />
      <Compile Include="Assets\Scripts\Hero_Interaction.cs" />
      <Compile Include="Assets\Scripts\JellyFish_interaction.cs" />
      <Compile Include="Assets\Scripts\LoadSceneSupport.cs" />
      <Compile Include="Assets\Scripts\SquidBehaviour.cs" />
+<<<<<<< Updated upstream
+=======
+     <Compile Include="Assets\Scripts\StarBar_interaction.cs" />
+ <Reference Include="UnityEngine.Networking">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+>>>>>>> Stashed changes
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
