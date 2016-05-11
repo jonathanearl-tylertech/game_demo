@@ -50,6 +50,14 @@ public class Hero_Interaction : MonoBehaviour {
 		// Handle when hero collided with the bottom bound of the window (die)
 		CameraBehavior globalBehavior = GameObject.Find("Main Camera").GetComponent<CameraBehavior>();
 		CameraBehavior.WorldBoundStatus status = globalBehavior.ObjectCollideWorldBound (GetComponent<Renderer> ().bounds);
+		Vector3 pos = globalBehavior.mCamera.WorldToViewportPoint (transform.position);
+		pos.x = Mathf.Clamp (pos.x, 0.03f, 1f);
+		pos.y = Mathf.Clamp (pos.y, 0.035f, 1f);
+		transform.position = globalBehavior.mCamera.ViewportToWorldPoint (pos);
+
+
+
+
 		if (status == CameraBehavior.WorldBoundStatus.CollideBottom) {
 			// Destroy Meemo
 			// TimeScale = 0;

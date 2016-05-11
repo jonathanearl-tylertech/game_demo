@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\BubbleBehaviour.cs" />
      <Compile Include="Assets\Scripts\BubbleCreationBehavior.cs" />
+     <Compile Include="Assets\Scripts\CameraBehavior(JonsVersion).cs" />
      <Compile Include="Assets\Scripts\CameraBehavior.cs" />
      <Compile Include="Assets\Scripts\CollectableHeartBehavior.cs" />
      <Compile Include="Assets\Scripts\CollectableStarBehavior.cs" />
