@@ -47,6 +47,8 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\BubbleBehaviour.cs" />
      <Compile Include="Assets\Scripts\CameraBehavior.cs" />
+     <Compile Include="Assets\Scripts\CollectableHeartBehavior.cs" />
+     <Compile Include="Assets\Scripts\CollectableStarBehavior.cs" />
      <Compile Include="Assets\Scripts\GlobalBehaviour.cs" />
      <Compile Include="Assets\Scripts\HealthBar_interaction.cs" />
      <Compile Include="Assets\Scripts\Hero_Interaction.cs" />
