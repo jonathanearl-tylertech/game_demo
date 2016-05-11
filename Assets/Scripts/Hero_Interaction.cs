@@ -7,10 +7,16 @@ public class Hero_Interaction : MonoBehaviour {
     public float air_speed = 0.1f;
     private Rigidbody2D rigid_body;
 
+	#region healthbar support
+	private const int MAX_HEALTH = 3;
+	public int health = MAX_HEALTH;
+	HealthBar_interaction health_bar;
+	#endregion
+
 	#region jump support
     bool grounded = false;
     public Transform ground_check;
-    float ground_radius = 0.01f;
+    float ground_radius = 0.3f;
     public LayerMask what_is_ground;
 	#endregion
 
@@ -30,6 +36,7 @@ public class Hero_Interaction : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		this.health_bar = GameObject.Find ("HealthBar").GetComponent<HealthBar_interaction> ();
         this.rigid_body = this.GetComponent<Rigidbody2D>();
 		isInBubble = false;
 		isFacingRight = true;
@@ -71,7 +78,8 @@ public class Hero_Interaction : MonoBehaviour {
 				Jump ();
 			} else if (Input.GetKeyDown ("space") && !this.grounded && this.star_timer > 0f) {
 				is_using_power = true;
-			} else if (Input.GetKeyUp ("space") || this.star_timer <= 0f) {
+			}
+			if (!Input.GetKey ("space") || this.star_timer <= 0f) {
 				is_using_power = false;
 			}
 			if (is_using_power) {

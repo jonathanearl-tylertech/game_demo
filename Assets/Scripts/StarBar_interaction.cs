@@ -5,6 +5,7 @@ public class StarBar_interaction : MonoBehaviour {
 	private CameraBehavior main_camera;
 	private float width;
 	private float MIN_BAR_WIDTH = 0f;
+	private const float PERCENT_OF_CAMERA = 0.33f;
 	private float bar_ratio = 1f;
 	// Use this for initialization
 	void Start () {
@@ -22,7 +23,7 @@ public class StarBar_interaction : MonoBehaviour {
 		float cam_height = main_camera.WorldMax.y - main_camera.WorldMin.y;
 		float cam_width = main_camera.WorldMax.x - main_camera.WorldMin.x;
 		// get width of bar and height of bar
-		float width = cam_width / 2f * 0.5f; //width is 50% of the screen
+		float width = cam_width / 2f * PERCENT_OF_CAMERA; //width is 50% of the screen
 		float height = cam_height * 0.05f; // height is 5 % of the screen
 		// get position of bar
 		float x = main_camera.transform.position.x;

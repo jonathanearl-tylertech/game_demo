@@ -7,21 +7,38 @@ public class JellyFish_interaction : MonoBehaviour {
 	private float start_y;
 	private Rigidbody2D rigid_body;
 
+	#region support floating of jelly fish
+	private bool float_up = false;
+	public float float_radius_max = 0.5f;
+	public float float_radius_min = 0.3f;
+	public float float_radius;
+	#endregion
+
 	public Animator anim;
 
     // Use this for initialization
     void Start()
     {
+		this.float_radius = Random.Range (float_radius_min, float_radius_max);
 		this.start_y = this.transform.position.y;
 		this.rigid_body = this.gameObject.GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
     }
 		
 	void FixedUpdate() {
-		if ((this.start_y - this.transform.position.y) > 0.05f && this.transform.position.y + 0.05f < this.start_y) {
-			this.rigid_body.AddForce (new Vector2 (0f, 20f), ForceMode2D.Force);
+		float distance_from_start = this.start_y - this.transform.position.y;
+		if (distance_from_start > float_radius) {
+			float_up = true;
+		} else if (distance_from_start < -float_radius) {
+			float_up = false;
 		}
 
+		if (float_up)
+			FloatUp ();
+	}
+
+	void FloatUp() {
+		this.rigid_body.AddForce (new Vector2 (0f, 20f), ForceMode2D.Force);
 	}
 		
 	void OnCollisionEnter2D(Collision2D other)
@@ -29,10 +46,8 @@ public class JellyFish_interaction : MonoBehaviour {
 		if (other.gameObject.tag == "Player")
 		{
 			anim.SetTrigger ("trigger");
-			Debug.Log ("Collided with tag player");
 			Rigidbody2D hero_rigid = other.gameObject.GetComponent<Rigidbody2D>();
 			hero_rigid.velocity = new Vector3(hero_rigid.velocity.x, 0f, 0f);
-			//hero_rigid.velocity = new Vector2(hero_rigid.velocity.x, 0f);
 			// choose up or down bounce
 			int direction;
 			if (other.gameObject.transform.position.y > this.transform.position.y) direction = 1;
