@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class SquidBehaviour : MonoBehaviour {
-	public float distance = 2f;
+	public float distance = 4f;
 	public Vector3 initpos;
 	public float maxY;
 	//public float minY;
@@ -37,10 +37,10 @@ public class SquidBehaviour : MonoBehaviour {
 	}
 
 	private void MoveUp(){
-		transform.position = new Vector3(transform.position.x, transform.position.y + 0.01f, transform.position.z);
+		transform.position = new Vector3(transform.position.x, transform.position.y + 0.015f, transform.position.z);
 	}
 
 	private void MoveDown(){
-		transform.position = new Vector3(transform.position.x, transform.position.y - 0.01f, transform.position.z);
+		transform.position = new Vector3(transform.position.x, transform.position.y - 0.015f, transform.position.z);
 	}
 }

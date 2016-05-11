@@ -10,9 +10,6 @@ public class BubbleBehaviour : MonoBehaviour {
 	public bool isPopped;
 	public Animator anim;
 
-	ParticleSystem ps;
-	ParticleSystem.EmissionModule em;
-
 	private Hero_Interaction thisMeemo;
 
 
@@ -29,12 +26,6 @@ public class BubbleBehaviour : MonoBehaviour {
 
 		anim = GetComponent<Animator> ();
 		isPopped = false;
-
-		ps = this.GetComponent<ParticleSystem> ();
-		em = ps.emission;
-		em.enabled = false;
-
-
 	}
 
 
@@ -82,10 +73,9 @@ public class BubbleBehaviour : MonoBehaviour {
 
 
 
-	// When hero comes into the bubble
+	// When bubble touches other game objects
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		Debug.Log ("Touches something");
 		Hero_Interaction meemo = GameObject.FindGameObjectWithTag ("Player").GetComponent<Hero_Interaction> ();
 		if (other.gameObject.name == "Meemo" && !meemo.isInBubble && !isPopped) {
 			Debug.Log ("Touches Meemo");
@@ -96,9 +86,11 @@ public class BubbleBehaviour : MonoBehaviour {
 			thisMeemo.bubble = this;
 			thisMeemo.isInBubble = true;
 
-			ps = this.GetComponent<ParticleSystem> ();
-			em = ps.emission;
-			em.enabled = true;
+		}
+
+		// Bubble pops when touches jellyfish or squid
+		if (other.gameObject.tag == "jelly" || other.gameObject.tag == "squid") {
+			PopBubble ();
 		}
 	}
 
