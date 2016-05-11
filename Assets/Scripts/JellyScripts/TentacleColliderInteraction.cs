@@ -18,6 +18,7 @@ public class TentacleColliderInteraction : MonoBehaviour {
 		if (other.gameObject.tag == "Player")
 		{
 			// Code to handle electricity and bouncing out
+			Debug.Log("Meemo touches tentacles");
 		}
 	}
 }
