@@ -49,7 +49,9 @@
      <Compile Include="Assets\Scripts\CameraBehavior.cs" />
      <Compile Include="Assets\Scripts\GlobalBehaviour.cs" />
      <Compile Include="Assets\Scripts\Hero_Interaction.cs" />
-     <Compile Include="Assets\Scripts\JellyFish_interaction.cs" />
+     <Compile Include="Assets\Scripts\JellyScripts\HeadColliderInteraction.cs" />
+     <Compile Include="Assets\Scripts\JellyScripts\JellyFish_interaction.cs" />
+     <Compile Include="Assets\Scripts\JellyScripts\TentacleColliderInteraction.cs" />
      <Compile Include="Assets\Scripts\LoadSceneSupport.cs" />
      <Compile Include="Assets\Scripts\SquidBehaviour.cs" />
      <Compile Include="Assets\Scripts\StarBar_interaction.cs" />

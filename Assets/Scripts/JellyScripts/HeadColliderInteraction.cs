@@ -1,29 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class JellyFish_interaction : MonoBehaviour {
-
-    public float bounce_force = 40f;
-	private float start_y;
-	private Rigidbody2D rigid_body;
-
+public class HeadColliderInteraction : MonoBehaviour {
 	public Animator anim;
+	public float bounce_force = 40f;
 
-    // Use this for initialization
-    void Start()
-    {
-		this.start_y = this.transform.position.y;
-		this.rigid_body = this.gameObject.GetComponent<Rigidbody2D> ();
-		anim = GetComponent<Animator> ();
-    }
-		
-	void FixedUpdate() {
-		if ((this.start_y - this.transform.position.y) > 0.05f && this.transform.position.y + 0.05f < this.start_y) {
-			this.rigid_body.AddForce (new Vector2 (0f, 20f), ForceMode2D.Force);
-		}
-
+	// Use this for initialization
+	void Start () {
+		anim = GetComponentInParent<Animator> ();
 	}
-		
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+
+
 	void OnCollisionEnter2D(Collision2D other)
 	{
 		if (other.gameObject.tag == "Player")
