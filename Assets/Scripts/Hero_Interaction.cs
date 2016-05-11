@@ -56,7 +56,7 @@ public class Hero_Interaction : MonoBehaviour {
 			// Panel is active
 			Destroy (GameObject.Find("Meemo"));
 			Time.timeScale = 0;
-			GameObject.Find ("GameManager").GetComponent<GlobalBehaviour>().enabled = false; // SetActive to false to stop generating new bubble
+			//GameObject.Find ("GameManager").GetComponent<GlobalBehaviour>().enabled = false; // SetActive to false to stop generating new bubble
 			//GameObject.Find("Bubble(Clone)").GetComponent<BubbleBehaviour>().enabled = false;
 			gameOverCanvas.enabled = true;
 		}

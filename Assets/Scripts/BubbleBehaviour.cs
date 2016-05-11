@@ -6,7 +6,7 @@ public class BubbleBehaviour : MonoBehaviour {
 	public float sinOsc = 15f;
 	public Vector3 initpos;
 	public bool hasMeemo = false;
-	private Vector3 bSize;
+	//private Vector3 bSize;
 	public bool isPopped;
 	public Animator anim;
 
@@ -17,10 +17,10 @@ public class BubbleBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		globalBehaviour = GameObject.Find ("Main Camera").GetComponent<CameraBehavior> ();
-		bSize = GetComponent<Renderer> ().bounds.size;
+		//bSize = GetComponent<Renderer> ().bounds.size;
 
-		transform.position = new Vector3 (Random.Range (globalBehaviour.WorldMin.x, globalBehaviour.WorldMax.x),
-			globalBehaviour.WorldMin.y - bSize.y / 2f, 0f);
+		//transform.position = new Vector3 (Random.Range (globalBehaviour.WorldMin.x, globalBehaviour.WorldMax.x),
+		//	globalBehaviour.WorldMin.y - bSize.y / 2f, 0f);
 
 		initpos = transform.position;
 
