@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class Hero_Interaction : MonoBehaviour {
+	private Canvas gameOverCanvas;
 
     public float max_speed = 2f;
     public float air_speed = 0.1f;
@@ -41,9 +42,26 @@ public class Hero_Interaction : MonoBehaviour {
 		isInBubble = false;
 		isFacingRight = true;
 		this.star_bar = GameObject.Find ("StarBar").GetComponent<StarBar_interaction> ();
+		gameOverCanvas = GameObject.Find ("GameOverCanvas").GetComponent<Canvas> ();
+		gameOverCanvas.enabled = false;		// The GameOverCanvas has to be initially enabled on the Unity UI
     }
 
     void FixedUpdate () {
+		// Handle when hero collided with the bottom bound of the window (die)
+		CameraBehavior globalBehavior = GameObject.Find("Main Camera").GetComponent<CameraBehavior>();
+		CameraBehavior.WorldBoundStatus status = globalBehavior.ObjectCollideWorldBound (GetComponent<Renderer> ().bounds);
+		if (status == CameraBehavior.WorldBoundStatus.CollideBottom) {
+			// Destroy Meemo
+			// TimeScale = 0;
+			// Panel is active
+			Destroy (GameObject.Find("Meemo"));
+			Time.timeScale = 0;
+			GameObject.Find ("GameManager").GetComponent<GlobalBehaviour>().enabled = false; // SetActive to false to stop generating new bubble
+			//GameObject.Find("Bubble(Clone)").GetComponent<BubbleBehaviour>().enabled = false;
+			gameOverCanvas.enabled = true;
+		}
+
+
 		/// Interaction with bubble
 		if (isInBubble) {
 			Debug.Log ("InBubble");
