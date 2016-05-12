@@ -119,12 +119,12 @@ public class Hero_Interaction : MonoBehaviour {
 		/// End interaction with bubble
 
 		if (Input.GetAxis ("Horizontal") < 0f && isFacingRight) {
-			transform.localScale = new Vector3 (-.3f, .3f, 0f);
+			transform.localScale = new Vector3 (-.3f, .3f, 1f);
 			isFacingRight = false;
 		}
 
 		if (Input.GetAxis ("Horizontal") > 0f && !isFacingRight) {
-			transform.localScale = new Vector3 (.3f, .3f, 0f);
+			transform.localScale = new Vector3 (.3f, .3f, 1f);
 			isFacingRight = true;
 		}
 
@@ -133,6 +133,11 @@ public class Hero_Interaction : MonoBehaviour {
 	void fly () {
 		this.star_timer -= Time.fixedDeltaTime;
 		this.rigid_body.AddForce (new Vector2 (5f, 20f), ForceMode2D.Force);
+		star_bar.UpdateStarBarSize (this.star_timer);
+	}
+
+	public void ResetStarPower() {
+		this.star_timer = 1f;
 		star_bar.UpdateStarBarSize (this.star_timer);
 	}
 

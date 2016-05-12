@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Angler_interaction.cs" />
      <Compile Include="Assets\Scripts\BubbleBehaviour.cs" />
      <Compile Include="Assets\Scripts\BubbleCreationBehavior.cs" />
      <Compile Include="Assets\Scripts\CameraBehavior(JonsVersion).cs" />

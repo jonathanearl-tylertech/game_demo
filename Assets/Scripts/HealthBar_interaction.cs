@@ -20,10 +20,6 @@ public class HealthBar_interaction : MonoBehaviour {
 		float y = Camera.main.transform.position.y + Camera.main.orthographicSize;
 		y -= heart.transform.localScale.y;
 
-		//float x = main_camera.WorldMin.x + heart.transform.localScale.x;
-		//float y = main_camera.WorldMax.y - heart.transform.localScale.y;
-		Debug.Log ("world.x:" + main_camera.WorldMin.x + " world.y:" + main_camera.WorldMax.y);
-		Debug.Log ("x:" + x + " y:" + y);
 		for (int i = 0; i < MAX_HEALTH; i++) {
 			GameObject e = Instantiate (heart) as GameObject;
 			e.transform.position = new Vector3(x + heart.transform.localScale.x * i, y, 0f);
@@ -33,6 +29,14 @@ public class HealthBar_interaction : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		float x = Camera.main.transform.position.x - Camera.main.orthographicSize * Camera.main.aspect;
+		x += heart.transform.localScale.x;
+		float y = Camera.main.transform.position.y + Camera.main.orthographicSize;
+		y -= heart.transform.localScale.y;
+
+		this.transform.position = new Vector3 (x, y, 0f);
+		for (int i = 0; i < MAX_HEALTH; i++) {
+			Hearts[i].transform.position = new Vector3(x + heart.transform.localScale.x * i, y, 0f);
+		}
 	}
 }
