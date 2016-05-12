@@ -15,7 +15,6 @@ public class LoadSceneSupport : MonoBehaviour {
 	void Start () {
         // Workflow assume:
         //      mLevelOneButton: is dragged/placed from UI
-
         // add in listener
         mStart.onClick.AddListener(
                 () => {                     // Lamda operator: define an annoymous function
