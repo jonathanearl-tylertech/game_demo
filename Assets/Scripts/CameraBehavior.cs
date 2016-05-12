@@ -10,14 +10,17 @@ public class CameraBehavior: MonoBehaviour {
     private Vector2 mWorldCenter;
     #endregion
 
-	[SerializeField]
-	private float globalyMax;
-	[SerializeField]
-	private float globalxMax;
-	[SerializeField]
+
+	public float globalyMax;
+	public float globalxMax;
 	public float globalyMin;
-	[SerializeField]
-	private float globalxMin;
+	public float globalxMin;
+
+	public float cameraMinx;
+	public float cameraMaxx;
+	public float cameraMiny;
+	public float cameraMaxy;
+
 
 	private Transform target;
 	private Transform cam;
@@ -29,10 +32,11 @@ public class CameraBehavior: MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+		/*
 		globalxMax = 76f;
 		globalxMin = 0f;
 		globalyMax = 9.8f;
-		globalyMin = -9.9f;
+		globalyMin = -9.9f;*/
 
         mCamera = GetComponent<Camera>();
 		target = GameObject.Find("Meemo").transform;
@@ -44,14 +48,21 @@ public class CameraBehavior: MonoBehaviour {
         mWorldBound = new Bounds(Vector3.zero, Vector3.one);
         UpdateWorldWindowBound();
 
+		cameraMinx = 0f;
+		cameraMaxx = globalxMax - mCamera.orthographicSize * mCamera.aspect;
+		cameraMiny = globalyMin + mCamera.orthographicSize;
+		cameraMaxy = globalyMax - mCamera.orthographicSize;
+
 		this.star_bar = GameObject.Find ("StarBar").GetComponent<StarBar_interaction> ();
     }
+
+
 	void LateUpdate(){
 		if(GameObject.Find("Meemo") != null)
-			transform.position = new Vector3 (Mathf.Clamp (target.position.x, globalxMin, globalxMax), Mathf.Clamp (target.position.y, globalyMin, globalyMax), transform.position.z);  
+			transform.position = new Vector3 (Mathf.Clamp (target.position.x, cameraMinx, cameraMaxx), Mathf.Clamp (target.position.y, cameraMiny, cameraMaxy), transform.position.z);  
 
 		// limits the hero from moving backwards
-		globalxMin = cam.position.x;
+		cameraMinx = cam.position.x;
 	}
 	
 	// Update is called once per frame
@@ -77,6 +88,8 @@ public class CameraBehavior: MonoBehaviour {
 	/// 
     public void UpdateWorldWindowBound()
     {
+		Vector3 backgroundSize = GameObject.Find ("backgroundImage").GetComponent<Renderer> ().bounds.size;
+
         float maxY = mCamera.orthographicSize;
         float maxX = mCamera.orthographicSize * mCamera.aspect;
         float sizeX = 2 * maxX;
@@ -92,6 +105,12 @@ public class CameraBehavior: MonoBehaviour {
         mWorldCenter = new Vector2(c.x, c.y);
         mWorldMin = new Vector2(mWorldBound.min.x, mWorldBound.min.y);
         mWorldMax = new Vector2(mWorldBound.max.x, mWorldBound.max.y);
+
+		globalxMin = -mCamera.orthographicSize * mCamera.aspect;
+		globalxMax = backgroundSize.x - (mCamera.orthographicSize * mCamera.aspect);
+		globalyMax = backgroundSize.y / 2f;
+		globalyMin = -backgroundSize.y / 2f;
+		Debug.Log (globalxMin + " " + globalxMax + " " + globalyMin + " " + globalyMax);
     }
 
     public Vector2 WorldCenter { get { return mWorldCenter; } }

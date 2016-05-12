@@ -6,21 +6,19 @@ public class BubbleBehaviour : MonoBehaviour {
 	public float sinOsc = 15f;
 	public Vector3 initpos;
 	public bool hasMeemo = false;
-	//private Vector3 bSize;
 	public bool isPopped;
 	public Animator anim;
 
+	public float lastingTime = 3f;
+	public float timePassed = 0f;
+
 	private Hero_Interaction thisMeemo;
 
+	private CameraBehavior globalBehavior;
 
-	private CameraBehavior globalBehaviour;
 	// Use this for initialization
 	void Start () {
-		globalBehaviour = GameObject.Find ("Main Camera").GetComponent<CameraBehavior> ();
-		//bSize = GetComponent<Renderer> ().bounds.size;
-
-		//transform.position = new Vector3 (Random.Range (globalBehaviour.WorldMin.x, globalBehaviour.WorldMax.x),
-		//	globalBehaviour.WorldMin.y - bSize.y / 2f, 0f);
+		globalBehavior = GameObject.Find("Main Camera").GetComponent<CameraBehavior>();
 
 		initpos = transform.position;
 
@@ -40,12 +38,20 @@ public class BubbleBehaviour : MonoBehaviour {
 		Vector3 size = GetComponent<Renderer> ().bounds.size;
 
 		// When top of bubble touches world bound, Pop it
-		if ((transform.position.y + size.y / 2f) > globalBehaviour.WorldMax.y && !isPopped) {
+		if (((transform.position.y + size.y / 2f) > globalBehavior.globalyMax && !isPopped)) {
 			PopBubble ();
 		}
 
+		if (hasMeemo) {
+			timePassed += Time.deltaTime;
+			if (timePassed > lastingTime && !isPopped) {
+				PopBubble ();
+			}
+		}
+
+
 		// When bottom of bubble touches world bound, destroy it
-		if ((transform.position.y - size.y / 2f) > globalBehaviour.WorldMax.y) {
+		if ((transform.position.y - size.y / 2f) > globalBehavior.globalyMax) {
 			Debug.Log ("bubble is destroyed");
 			Destroy (this.gameObject);
 		}
@@ -66,7 +72,7 @@ public class BubbleBehaviour : MonoBehaviour {
 
 	// Calculate the x value for bubble movement
 	private float GetXValue(float y){
-		float sinFreqScale = sinOsc * 2f * (Mathf.PI) / globalBehaviour.WorldMax.y;
+		float sinFreqScale = sinOsc * 2f * (Mathf.PI) / globalBehavior.globalxMax;
 		return sinAmp * (Mathf.Sin(y * sinFreqScale));
 	}
 

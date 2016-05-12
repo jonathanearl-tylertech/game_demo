@@ -7,6 +7,7 @@ public class Hero_Interaction : MonoBehaviour {
     public float max_speed = 2f;
     public float air_speed = 0.1f;
     private Rigidbody2D rigid_body;
+	public Vector3 mSize;
 
 	#region healthbar support
 	private const int MAX_HEALTH = 3;
@@ -37,6 +38,7 @@ public class Hero_Interaction : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		mSize = GetComponent<Renderer> ().bounds.size;
 		this.health_bar = GameObject.Find ("HealthBar").GetComponent<HealthBar_interaction> ();
         this.rigid_body = this.GetComponent<Rigidbody2D>();
 		isInBubble = false;
@@ -51,13 +53,14 @@ public class Hero_Interaction : MonoBehaviour {
 		CameraBehavior globalBehavior = GameObject.Find("Main Camera").GetComponent<CameraBehavior>();
 		CameraBehavior.WorldBoundStatus status = globalBehavior.ObjectCollideWorldBound (GetComponent<Renderer> ().bounds);
 		Vector3 pos = globalBehavior.mCamera.WorldToViewportPoint (transform.position);
-		pos.x = Mathf.Clamp (pos.x, 0.03f, 1f);
-		pos.y = Mathf.Clamp (pos.y, 0.035f, 1f);
+		Vector3 backgroundSize = GameObject.Find ("backgroundImage").GetComponent<Renderer> ().bounds.size;
+		pos.x = Mathf.Clamp (pos.x, 0.03f, 1f - (mSize.x / backgroundSize.x)); //(1f / backgroundSize.x * mSize.x / 2f));
+		pos.y = Mathf.Clamp (pos.y, 0.035f, 1f - (mSize.y / backgroundSize.y));
 		transform.position = globalBehavior.mCamera.ViewportToWorldPoint (pos);
 
 
 		//if (status == CameraBehavior.WorldBoundStatus.CollideBottom) {
-		if (transform.position.y <= globalBehavior.globalyMin - globalBehavior.mCamera.orthographicSize + 1)
+		if (transform.position.y - mSize.y/2f <= globalBehavior.globalyMin)
 		{
 			// Destroy Meemo
 			// TimeScale = 0;
