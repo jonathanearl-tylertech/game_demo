@@ -56,9 +56,9 @@ public class Hero_Interaction : MonoBehaviour {
 		transform.position = globalBehavior.mCamera.ViewportToWorldPoint (pos);
 
 
-
-
-		if (status == CameraBehavior.WorldBoundStatus.CollideBottom) {
+		//if (status == CameraBehavior.WorldBoundStatus.CollideBottom) {
+		if (transform.position.y <= globalBehavior.globalyMin - globalBehavior.mCamera.orthographicSize + 1)
+		{
 			// Destroy Meemo
 			// TimeScale = 0;
 			// Panel is active
@@ -72,7 +72,7 @@ public class Hero_Interaction : MonoBehaviour {
 
 		/// Interaction with bubble
 		if (isInBubble) {
-			Debug.Log ("InBubble");
+			//Debug.Log ("InBubble");
 
 			if (Input.GetAxis ("Horizontal") != 0f) { // When meemo is controlling the horizontal direction
 				
@@ -96,7 +96,7 @@ public class Hero_Interaction : MonoBehaviour {
 
 		} else {
 
-			Debug.Log ("Not in bubble!");
+			//Debug.Log ("Not in bubble!");
 			this.grounded = Physics2D.OverlapCircle(this.ground_check.position, this.ground_radius, this.what_is_ground);
 			this.rigid_body.velocity = new Vector2(Input.GetAxis("Horizontal") * max_speed, this.rigid_body.velocity.y);
 

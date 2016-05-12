@@ -15,7 +15,7 @@ public class CameraBehavior: MonoBehaviour {
 	[SerializeField]
 	private float globalxMax;
 	[SerializeField]
-	private float globalyMin;
+	public float globalyMin;
 	[SerializeField]
 	private float globalxMin;
 
@@ -37,6 +37,7 @@ public class CameraBehavior: MonoBehaviour {
         mCamera = GetComponent<Camera>();
 		target = GameObject.Find("Meemo").transform;
 		cam = GameObject.Find ("Main Camera").transform;
+
 			
 
         // World bound support
@@ -46,7 +47,8 @@ public class CameraBehavior: MonoBehaviour {
 		this.star_bar = GameObject.Find ("StarBar").GetComponent<StarBar_interaction> ();
     }
 	void LateUpdate(){
-		transform.position = new Vector3 (Mathf.Clamp (target.position.x, globalxMin, globalxMax), Mathf.Clamp (target.position.y, globalyMin, globalyMax), transform.position.z);  
+		if(GameObject.Find("Meemo") != null)
+			transform.position = new Vector3 (Mathf.Clamp (target.position.x, globalxMin, globalxMax), Mathf.Clamp (target.position.y, globalyMin, globalyMax), transform.position.z);  
 
 		// limits the hero from moving backwards
 		globalxMin = cam.position.x;
@@ -102,13 +104,13 @@ public class CameraBehavior: MonoBehaviour {
 
         if (mWorldBound.Intersects(objBound))
         {
-            if (objBound.max.x > mWorldBound.max.x)
+			if (objBound.max.x > globalxMax) //mWorldBound.max.x)
                 status = WorldBoundStatus.CollideRight;
-            else if (objBound.min.x < mWorldBound.min.x)
+			else if (objBound.min.x < globalxMin) //mWorldBound.min.x)
                 status = WorldBoundStatus.CollideLeft;
-            else if (objBound.max.y > mWorldBound.max.y)
+			else if (objBound.max.y > globalyMax) //mWorldBound.max.y)
                 status = WorldBoundStatus.CollideTop;
-            else if (objBound.min.y < mWorldBound.min.y)
+			else if (objBound.min.y < globalyMin + 1f) //mWorldBound.min.y)
                 status = WorldBoundStatus.CollideBottom;
             else if ((objBound.min.z < mWorldBound.min.z) || (objBound.max.z > mWorldBound.max.z))
                 status = WorldBoundStatus.Outside;
@@ -118,7 +120,7 @@ public class CameraBehavior: MonoBehaviour {
         }
         return status;
     }
-
+	/*
     public WorldBoundStatus ObjectClampToWorldBound(Transform t)
     {
         WorldBoundStatus status = WorldBoundStatus.Inside;
@@ -148,6 +150,6 @@ public class CameraBehavior: MonoBehaviour {
 
         t.position = p;
         return status;
-    }
+    }*/
     #endregion
 }
