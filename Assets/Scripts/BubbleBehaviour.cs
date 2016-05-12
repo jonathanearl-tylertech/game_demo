@@ -9,7 +9,7 @@ public class BubbleBehaviour : MonoBehaviour {
 	public bool isPopped;
 	public Animator anim;
 
-	public float lastingTime = 3f;
+	public float lastingTime = 10f;
 	public float timePassed = 0f;
 
 	private Hero_Interaction thisMeemo;
